@@ -69,7 +69,11 @@ chmod 700 "$service_dir/run"
 SVDIR="$prefix/var/service"
 if [ ! -d "$service_dir/supervise" ]; then
   service-daemon start || true
+  sleep 1
 fi
-SVDIR="$SVDIR" sv up "$service_name"
 
-printf '%s\n' "Installed and started $service_name." "Bridge token: $token" "Paste the token into Obsidian Settings > Termux Terminal."
+if SVDIR="$SVDIR" sv up "$service_name"; then
+	printf '%s\n' "Installed and started $service_name." "Bridge token: $token" "Paste the token into Obsidian Settings > Termux Terminal."
+else 
+	printf "Service did't initialized properly. Run this script again after exiting Termux app"
+
