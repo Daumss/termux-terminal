@@ -20,7 +20,7 @@ if [ "$(uname -m)" != "aarch64" ]; then
   exit 1
 fi
 
-pkg install -y curl openssl-tool runit
+pkg install -y curl openssl-tool runit termux-services
 bridge_tag="${TERMUX_TERMINAL_BRIDGE_TAG:-}"
 if [ -z "$bridge_tag" ]; then
   bridge_tag="$(curl -fsSL "https://api.github.com/repos/$repository/releases?per_page=100" | sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\(bridge-[^"]*\)".*/\1/p' | head -n 1)"
