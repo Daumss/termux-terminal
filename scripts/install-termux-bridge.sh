@@ -68,7 +68,7 @@ chmod 700 "$service_dir/run"
 
 SVDIR="$prefix/var/service"
 if [ ! -d "$service_dir/supervise" ]; then
-  service-daemon start || true
+  SVDIR="$SVDIR" service-daemon start || true
   sleep 1
 fi
 
