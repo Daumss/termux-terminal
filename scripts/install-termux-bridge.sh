@@ -73,7 +73,8 @@ if [ ! -d "$service_dir/supervise" ]; then
 fi
 
 if SVDIR="$SVDIR" sv up "$service_name"; then
-	printf '%s\n' "Installed and started $service_name." "Bridge token: $token" "Paste the token into Obsidian Settings > Termux Terminal."
-else 
-	printf "Service did't initialized properly. Run this script again after exiting Termux app"
-
+  printf '%s\n' "Installed and started $service_name." "Bridge token: $token" "Paste the token into Obsidian Settings > Termux Terminal."
+else
+  printf '%s\n' "The service could not be started. Fully exit and reopen Termux, then run this installer again." >&2
+  exit 1
+fi
