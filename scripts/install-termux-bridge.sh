@@ -69,8 +69,14 @@ chmod 700 "$service_dir/run"
 SVDIR="$prefix/var/service"
 if [ ! -d "$service_dir/supervise" ]; then
   SVDIR="$SVDIR" service-daemon start || true
-  sleep 1
 fi
+
+# runsvdir may take several seconds to discover a newly installed service.
+attempt=0
+while [ ! -p "$service_dir/supervise/ok" ] && [ "$attempt" -lt 10 ]; do
+  sleep 1
+  attempt=$((attempt + 1))
+done
 
 if SVDIR="$SVDIR" sv up "$service_name"; then
   printf '%s\n' "Installed and started $service_name." "Bridge token: $token" "Paste the token into Obsidian Settings > Termux Terminal."
